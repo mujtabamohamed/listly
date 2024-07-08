@@ -28,6 +28,10 @@ function extractErrorMessage(error) {
   }
 
 
+app.get("/", (req, res) => {
+    res.send("Hello World");
+});
+
 // Get all todos
 
 app.get('/todos/:userEmail', async (req, res) => {
