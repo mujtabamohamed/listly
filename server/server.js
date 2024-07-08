@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { v4 as uuidv4 } from 'uuid';
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import pool from "./db.js";
@@ -106,7 +106,7 @@ app.delete('/todos/:id', async(req,res) => {
 
 app.post('/signup', async(req, res) => {
     const { email, password } = req.body;
-    const salt = bcrypt.genSaltSync(10)
+    const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(password, salt);
     try {
         const signup = await pool.query("INSERT INTO users (email, hashed_password) VALUES($1, $2)",

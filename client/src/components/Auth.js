@@ -85,7 +85,7 @@ function Auth() {
             className = "border border-[#444444] rounded-lg text-sm mb-4 xs:w-[280px] sm:w-[320px] md:w-[380px] lg:w-[400px] xl:w-[420px] 2xl:w-[420px] p-4 bg-[#151515] placeholder-[#808080] focus:border-[#808080] focus:ring-0 outline-none text-white pl-4"
             onChange={(e) => setConfirmPassword(e.target.value)} />}
           
-          {error && <p className="error">{error}</p>}
+          {error && <p className="text-red-600 text-lg font-semibold mb-3">{error}</p>}
 
           <input 
             type="submit" 
