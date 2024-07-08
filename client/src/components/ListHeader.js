@@ -1,14 +1,9 @@
 import Modal from "./Modal";
 import { useState } from "react";
 
-import TickIcon from "./TickIcon";
-
 function ListHeader({listName, getData}) {
 
   const [showModal, setShowModal] = useState(false);
-
-
-
 
     return (
       <div className="w-full mt-8 mb-10 flex items-center justify-center">  
