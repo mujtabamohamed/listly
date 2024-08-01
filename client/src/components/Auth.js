@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useCookies } from 'react-cookie';
+import { FaGithub } from 'react-icons/fa';
+
+import Loader from "./Loader/Loader";
 
 function Auth() {
   const[cookies,setCookie, removeCookie] = useCookies(null);
@@ -12,6 +15,8 @@ function Auth() {
 
   const [error, setError] = useState(null);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   console.log(cookies);
 
   function viewLogin(status) {
@@ -21,9 +26,11 @@ function Auth() {
 
   async function handleSubmit(e, endpoint) {
     e.preventDefault();
+    setIsLoading(true);
 
     if(!isLogIn && password !== confirmPassword) {
       setError('Make sure passwords match!');
+      setIsLoading(false);
       return
     }
 
@@ -38,6 +45,7 @@ function Auth() {
 
     if(data.detail) {
       setError(data.detail);
+      setIsLoading(false);
     } else {
       setCookie('Email', data.email);
       setCookie('AuthToken', data.token);
@@ -63,7 +71,7 @@ function Auth() {
 
 
         <form className="flex flex-col items-center w-full xl:w-auto 2xl:w-auto">
-          <div className="text-xl mb-4 font-medium text-white xs:text-2xl xs:mb-6 sm:mb-6 sm:text-2xl lg:text-3xl lg:mb-8 xl:mb-10 2xl:mb-10">
+          <div className="text-xl mb-4 font-medium text-white xs:text-2xl xs:mb-5 sm:mb-5 sm:text-2xl lg:text-3xl lg:mb-5 xl:mb-5 ">
             {isLogIn ? 'Please log in' : 'Please sign up'}</div>
 
           <input 
@@ -92,6 +100,9 @@ function Auth() {
             value={isLogIn ? "Login" : 'Sign up'} 
             className="text-[#151515] font-medium text-center bg-[#ffffff] rounded-lg py-2 w-[250px] hover:bg-[#e7e7e7] xs:w-[280px] sm:w-[320px] md:w-[380px] lg:w-[400px] xl:w-[420px] 2xl:w-[420px]"
             onClick={(e) => handleSubmit(e, isLogIn ? 'login' : 'signup')} /> 
+
+          {isLoading && <Loader className="mt-4" />}
+
             
           <div className="text-[#c9c9c9] font-normal text-sm mt-3 sm:text-sm sm:mt-3 lg:text-[16px] lg:mt-4 ">
             <p>
@@ -102,6 +113,18 @@ function Auth() {
             {isLogIn ? 'Sign up' : 'Sign in'}</a>
             </p>
           </div>
+
+          <a
+            href="https://github.com/mujtabamohamed/listly"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-row justify-center items-center text-[#c5c5c5] font-normal text-center rounded-lg text-[16px] 
+            py-2 w-[250px] mt-10 bg-[#151515] border border-[#444444] drop-shadow-xl shadow-[#0c0c0c] hover:drop-shadow-[#252525]">
+            <FaGithub size={24} className="mr-2" />
+            <span>View on Github</span>
+          </a>
+
+
 
         </form>
       </div>

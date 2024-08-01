@@ -4,6 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+import cron from 'node-cron';
+import axios from 'axios';
+
 import pool from "./db.js";
 
 
@@ -155,6 +158,18 @@ app.post('/login', async(req, res) => {
 
     } catch (err) {
         console.error(err);
+    }
+});
+
+// Keep-alive mechanism
+const keepAliveUrl = process.env.LISTLY_SERVER_URL; // Use your Render URL if running on Render
+
+cron.schedule('*/5 * * * *', async () => {
+    try {
+        const response = await axios.get(keepAliveUrl);
+        console.log(`Keep-alive ping successful: ${response.status}`);
+    } catch (error) {
+        console.error(`Keep-alive ping failed: ${error.message}`);
     }
 });
 

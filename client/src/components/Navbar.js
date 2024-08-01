@@ -33,7 +33,8 @@ function Navbar ({props ,listName}) {
     
       <button 
         type="button" 
-        className="text-white bg-red-600 rounded-md hover:bg-red-700 xs:p-1 xs:font-semibold xs:text-xs  lg:p-2 lg:text-sm " 
+        className="text-[#c5c5c5] bg-[#151515] border border-[#444444] drop-shadow-xl shadow-[#0c0c0c] 
+          rounded-lg hover:drop-shadow-[#252525] py-2 xs:px-2 xs:font-semibold xs:text-xs  lg:px-3 lg:text-sm" 
         onClick={signOut}>
         Logout
       </button>
